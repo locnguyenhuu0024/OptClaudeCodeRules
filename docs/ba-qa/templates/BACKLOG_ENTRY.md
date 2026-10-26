@@ -1,0 +1,15 @@
+# BA Work Item Template
+- Epic: EP-...
+- Feature: FEAT-...
+- Story: US-...
+- Task: TASK-...
+- Goal / business value:
+- Source or request link:
+- Owner / decision authority:
+- Priority / objective rationale:
+- Scope / dependencies:
+- Blockers and risks:
+- Status / updated timestamp:
+- Required BA/QA output:
+- Feature dossier path:
+- Human approval reference (if approved):

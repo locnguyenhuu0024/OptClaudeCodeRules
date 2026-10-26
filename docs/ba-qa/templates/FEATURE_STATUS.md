@@ -1,0 +1,12 @@
+# Feature Status — FEAT-...
+- Canonical Feature ID / Epic / owner:
+- Current phase / evidence:
+- Requirement & AC baseline/version:
+- BA Ready: PASS | FAIL | BLOCKED
+- QA Test Design Ready: PASS | FAIL | BLOCKED
+- Actual test execution: NOT_RUN | measured counts with evidence
+- Open decisions / decision owner:
+- Tasks, dependencies and blockers:
+- Requirement change impact / TC IDs requiring review:
+- Human approvals:
+- Last updated:
