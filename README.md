@@ -1,81 +1,74 @@
-# OptClaudeCodeRules — BA / Tester Pack (v1.0)
+# OptClaudeCodeRules — BA / Tester Pack v1.1
 
-Reusable Claude Code rules for Business Analysts and QA/Testers. Verified for the Claude 5.5 lineup on 2026-10-26.
+Reusable Claude Code configuration for BA work management, business analysis, manual testing and automation testing.
 
-## Design goals
+## Main agent
+Recommended default: **Claude Sonnet 5.5, effort Medium**. Use Opus 5.5 Medium for particularly difficult multi-system business decisions or architecture; specialized agents use their own configured presets. A rule cannot force the main session's model.
 
-- **Correctness before verbosity:** separate facts, assumptions, open questions and recommendations.
-- **Traceability:** every acceptance criterion and test case maps back to a requirement/source.
-- **Cost awareness:** cheap extraction first; use stronger model for decisions and independent audits.
-- **Context discipline:** short always-loaded CLAUDE.md; load framework/templates only when relevant.
-- **Read-only by default:** do not modify application code, databases or production data.
+## Managed project scope (strict)
+This repository distributes reusable rules at root `CLAUDE.md`, `.claude/` and `docs/ba-qa/`. These are configuration, NOT generated project work.
 
-## Install into a working project
+Inside `project-workspace/`, only the following directories are managed:
+- `project-workspace/work/`: BA backlog, one dossier per Feature, BA requirements, manual QA, QA plans, evidence, defects, traceability.
+- `project-workspace/tests/`: executable automation tests, fixtures, helpers and ignored local test outputs.
 
-Copy the following paths into the root of the *target* repository (not your global home directory):
+Do not create or manage another tree under `project-workspace/`, including `test-results/`, `docs/` or `.claude/`. Do not change application code as part of BA/QA operations.
 
-    CLAUDE.md
-    .claude/agents/
-    docs/ba-qa/framework/
-    docs/ba-qa/templates/
+## Layout
+```text
+OptClaudeCodeRules/
+├── CLAUDE.md
+├── .claude/
+│   ├── agents/                  # BA / QA specialized subagents
+│   └── skills/                  # on-demand workflows
+├── docs/ba-qa/
+│   ├── framework/               # routing, BA, QA, workspace contract, quality
+│   └── templates/               # reusable document templates
+└── project-workspace/
+    ├── work/
+    │   ├── backlog/
+    │   │   ├── epics.md
+    │   │   ├── features.md
+    │   │   └── tasks.md
+    │   └── features/
+    │       └── FEAT-001-sample-slug/      # create on demand, not prepopulated
+    │           ├── brief.md
+    │           ├── status.md
+    │           ├── ba/
+    │           │   ├── requirements.md
+    │           │   ├── business-rules.md
+    │           │   ├── acceptance-criteria.md
+    │           │   └── decisions.md
+    │           ├── qa/
+    │           │   ├── test-plan.md
+    │           │   ├── manual/             # cases, exploratory, observed runs
+    │           │   ├── automation/         # plans, TC-to-script links only
+    │           │   ├── defects.md
+    │           │   └── test-report.md
+    │           └── traceability.md
+    └── tests/
+        ├── e2e/
+        ├── api/
+        ├── integration/
+        ├── fixtures/
+        └── helpers/
+```
 
-Start Claude Code from that target repository. Check with /agents and /context. On first creation of an agents directory during a running session, restart Claude Code if the agents do not appear. No CLI plugin, extra daemon, or API proxy is required.
+One canonical Feature ID is shared by BA and QA. Never create separate BA and QA feature registries. Create optional dossier files only when needed. Executable tests belong exclusively to `tests/`.
 
-For a BA-only task, ask: "Analyze this feature as a BA; produce requirements, ambiguity log, user stories and testable acceptance criteria; do not implement."
-For test design, ask: "Design a risk-based test suite and RTM for feature X based only on approved requirements."
-For audit, ask: "Independently audit this BA/QA pack for omissions, unsupported assumptions and non-testable acceptance criteria."
-For verification, ask: "Inspect the test commands and execute only approved non-destructive checks in a disposable environment; report actual evidence and limitations."
+## Workflow
+1. BA work management: Epic -> Feature -> User Story -> Task.
+2. BA analysis: discover sources, map AS-IS/TO-BE, define business rules and measurable acceptance criteria.
+3. QA design: trace AC -> test case, choose manual or automated.
+4. Manual testing: design and capture honest observations.
+5. Automation: implement approved tests in `tests/`; store maps and test plans in `work/`.
+6. Independent audit and coverage/defect reporting. Humans own business approval and release decisions.
 
-## File guide
+## Run
+Clone this repo and start Claude Code at repository root to discover CLAUDE.md, agents and skills, while managing only `project-workspace/work/` and `project-workspace/tests/`.
+Use `/model` (Sonnet 5.5) and `/effort medium` for the main session; use `/agents` to inspect specialist agents. When integrating elsewhere, keep the managed path convention or update all rules accordingly.
 
-- CLAUDE.md — small routing, safety and output contract, loaded on startup.
-- docs/ba-qa/framework/ROUTING_RULES.md — decision framework and price/effort guidance.
-- docs/ba-qa/framework/BA_RULES.md — requirement and acceptance criteria discipline.
-- docs/ba-qa/framework/QA_RULES.md — test case design, execution and defect discipline.
-- docs/ba-qa/framework/QUALITY_GATES.md — BA/QA readiness gates.
-- docs/ba-qa/framework/ARTIFACT_RULES.md — artifact boundaries and evidence handling.
-- docs/ba-qa/templates/ — load only the template needed for the task.
-- .claude/agents/ — six purpose-built agents with pinned Claude model IDs and effort.
+## Safety
+Permission-bound read of relevant outside sources is possible; write scope stays in two managed trees. Never run destructive tests or production writes without explicit approval. Do not fabricate approvals, expected results or passed tests. Test runner output stays in ignored directories under `tests/`, with redacted summaries under `work/`.
 
-## Baseline routing (cost optimization, not a guaranteed benchmark)
-
-| Work | Agent | Model | Effort |
-|---|---|---|---|
-| Extract/source inventory | ba-intake-extractor | claude-haiku-5-5 | medium |
-| BA requirements/story design | ba-analyst | claude-sonnet-5-5 | medium |
-| Independent domain review | ba-domain-auditor | claude-opus-5-5 | medium |
-| Test case and RTM design | qa-test-designer | claude-sonnet-5-5 | medium |
-| Risk/coverage audit | qa-coverage-auditor | claude-opus-5-5 | medium |
-| Authorized test evidence collection | qa-execution-assessor | claude-sonnet-5-5 | high |
-
-For exceptional tasks, manually escalate the session or revise the specific agent only after confirming model access and budget. Fable 5.1 is NOT launched automatically; it may require usage credits.
-
-Claude Code does not dynamically change the *main-session* model merely because CLAUDE.md says so. The main agent delegates work to separately configured agents. The CLAUDE_CODE_SUBAGENT_MODEL environment variable and per-invocation overrides may supersede frontmatter; verify the effective model/effort. Global settings and account/organization model availability can also apply.
-
-## Official API list prices as of 2026-10-26
-
-| Model | Input $/MTok | Output $/MTok |
-|---|---:|---:|
-| Haiku 5.5 | 0.10 | 0.50 |
-| Sonnet 5.5 | 2 | 10 |
-| Opus 5.5 | 4 | 20 |
-| Fable 5.1 | 10 | 50 |
-
-Haiku 5.5 costs $0.50 input and $2.50 output per MTok once the prompt exceeds 100k input tokens. Effort changes *token/tool consumption*, not the fixed per-token tariff. These API prices do not convert directly to Pro/Max subscription quota or guaranteed cost per task.
-
-## Model IDs and compatibility
-
-Full model IDs are intentionally pinned for reproducibility. Refresh this pack if model IDs are retired, newer models pass your evaluations, or your organization forbids one of the pinned IDs. Model/effort support and subscription availability must be verified on the target account.
-
-## Safety / quality boundary
-
-No fabricated test run, screenshot, business rule or source citation. No silent requirement decisions. No production writes, destructive database operations, secret exposure or code changes without explicit authorization. A generated plan or test case is NOT proof of an executed test.
-
-## References
-
-- https://platform.claude.com/docs/en/models/overview
-- https://platform.claude.com/docs/en/models/haiku-5-5/overview
-- https://platform.claude.com/docs/en/about-claude/pricing
-- https://code.claude.com/docs/en/sub-agents
-- https://code.claude.com/docs/en/model-config
-- https://code.claude.com/docs/en/memory
+Docs: https://code.claude.com/docs/en/sub-agents | https://code.claude.com/docs/en/skills | https://code.claude.com/docs/en/model-config

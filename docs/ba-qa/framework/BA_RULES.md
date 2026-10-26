@@ -37,3 +37,6 @@ L: multi-system contract/data flows, roles, decision tables, NFRs, change impact
 - Change product scope unilaterally or treat a suggested design as agreed.
 - Create a 20-section document for a trivial change.
 - Modify source, schemas or production data as part of BA analysis.
+
+## v1.1 Work organization
+Manage EP -> FEAT -> US -> TASK in project-workspace/work/backlog/. Keep each Feature's BA documents in project-workspace/work/features/FEAT-ID-slug/ba/. Human approval differs from task completion. Link business analysis and AC to canonical Feature IDs; see WORKSPACE_RULES.md. Never write elsewhere.

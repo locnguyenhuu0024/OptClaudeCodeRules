@@ -4,6 +4,10 @@
 
 Choose the smallest model likely to complete the unit with acceptable accuracy. Compare **total cost per accepted artifact** (first attempt + review + corrections), not just token price. Haiku 5.5 has a >100k input-token prompt pricing cliff. When source context is broad, extract targeted excerpts first rather than dumping an entire corpus into Haiku.
 
+## Main agent and scope
+
+Default coordinator: **Sonnet 5.5 / Medium**. Opus 5.5 / Medium on complex business decisions; stronger model only when needed. The main model is selected in the session, not by subagent frontmatter. Write only to project-workspace/work/ or project-workspace/tests/.
+
 ## Workflow routing
 
 | Complexity | Trigger | Assigned role | Preset |
@@ -14,6 +18,9 @@ Choose the smallest model likely to complete the unit with acceptable accuracy. 
 | S3 | Business-rule conflicts, financial/data/security implications, cross-system behavior | ba-domain-auditor | Opus 5.5 / medium |
 | S4 | Independent coverage/risk audit or high-impact release assessment | qa-coverage-auditor | Opus 5.5 / medium |
 | S5 | Approved, non-destructive test verification | qa-execution-assessor | Sonnet 5.5 / high |
+| S6 | Epic/Feature/Task triage | ba-backlog-manager | Sonnet 5.5 / medium |
+| S7 | Manual cases/exploratory/evidence | qa-manual-tester | Sonnet 5.5 / medium |
+| S8 | Approved test automation | qa-automation-engineer | Sonnet 5.5 / high |
 
 When urgency/complexity warrants, jump directly to S3/S4. Do not always start with Haiku. If a Sonnet artifact fails a targeted review, revise a concrete issue once; escalate unresolved conceptual problems to Opus. Do not spend more than two same-tier unsuccessful attempts.
 

@@ -28,3 +28,6 @@ Read the latest approved requirements, AC, known defects, system boundaries and 
 Build a change-based smoke/regression subset from changed requirements and dependencies. Test report must show executed/total, failed/blocked, open critical defects, untested risks, environment, evidence and recommendation (Go / Conditional / No-Go) as a recommendation, not unauthorized release approval.
 
 Independent coverage audit should be done by a different agent when risk or artifact size warrants.
+
+## v1.1 Manual / automation organization
+Keep manual cases, exploratory charters and real execution records in project-workspace/work/features/FEAT-ID-slug/qa/manual/. Keep automation selection and mappings in qa/automation/, executable code/fixtures/helpers ONLY in project-workspace/tests/. Shared TC ID bridges manual and automated approaches. Keep runtime reports in ignored subpaths under tests/ and sanitized evidence summaries under work/. No other project-workspace tree or application edits.
