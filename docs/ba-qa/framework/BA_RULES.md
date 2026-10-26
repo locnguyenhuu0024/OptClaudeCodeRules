@@ -1,42 +1,13 @@
-# Business Analysis (BA) rules
+# Business Analysis rules
 
-## Source-of-truth hierarchy
+## Intake and scope
+Find actual task/context files in project-workspace/work/ without assuming special folders or filenames. Establish objective, stakeholders/actors, current vs desired behavior, source/version, constraints, in/out scope, dependencies and blocking decisions.
 
-1. Approved business decisions and signed-off requirements.
-2. Current product behavior confirmed by reliable product artifacts or observed test evidence.
-3. Stakeholder drafts, tickets, diagrams and meeting notes, with provenance.
-4. Clearly labeled assumptions and proposals.
+## Work management
+Track Epic/Feature/Story/Task when these concepts exist in the user's records; preserve existing IDs and project conventions. Maintain priority rationale, owner (if known), dependency, status and next decision. Update relevant existing file(s) in work/ directly. Do not create dummy lists, duplicate issue trackers or force a hierarchy. A task marked Done is not BA approval.
 
-Record document/version, location and status. Conflicting sources are not resolved by recency alone: raise a clarification with an owner.
+## Analysis
+Describe AS-IS/TO-BE workflows, state transitions, permissions, business rules, exceptions, validations, calculations, rounding/timezones, integration contracts and applicable NFRs. Distinguish approved facts from inference/assumption/open questions. Derive objectively testable acceptance criteria with observable preconditions/actions/results. Use Given/When/Then where helpful, not obligatorily. Tag each criterion with available source/ID. Surface unresolved contradictions and human decision owners.
 
-## Workflow
-
-1. Intake: objective, actor/stakeholders, trigger, value, current vs target behavior, scope, out-of-scope, dependencies, impacted systems.
-2. Model flows: happy path, alternatives, exception paths, state transitions, role/permission matrix, upstream/downstream contracts.
-3. Extract rules: calculations, rounding, date/timezone, uniqueness, eligibility, validation, authorization, persistence, notifications, data retention.
-4. For each requirement, assign stable ID (BR-001, FR-001, NFR-001) and provenance.
-5. Draft user stories using actor/goal/benefit only if story format is useful; no forced stories for purely operational fixes.
-6. Write independently testable acceptance criteria (AC-001...), preferably Given/When/Then; quantify thresholds and observable outputs.
-7. Analyze negative paths, boundaries, duplicate requests, retries, permissions, concurrency, i18n/accessibility, downstream failures and migrations where relevant.
-8. Record unresolved assumptions/questions with severity, decision owner and impact. Block sign-off on unresolved decisions that change expected behavior.
-9. Perform BA Ready gate from QUALITY_GATES.md and hand over requirement-to-AC traceability.
-
-## Rules for good AC
-
-An AC must specify preconditions, input/action and observable result. Avoid adjectives (fast, intuitive, appropriate) without thresholds. Avoid implementation internals unless genuinely contractual. Separate multi-outcome conditions into distinct criteria. Include idempotency / rollback expectations for state-changing flows when relevant.
-
-## Scope tiers
-
-S: one requirement and key acceptance criteria, tiny clarification log.
-M: compact requirements, user flows, AC, open questions and test handoff.
-L: multi-system contract/data flows, roles, decision tables, NFRs, change impact, traceability and formal approval blockers.
-
-## Never do
-
-- Present assumptions as signed-off policy; invent edge-case values or numerical thresholds.
-- Change product scope unilaterally or treat a suggested design as agreed.
-- Create a 20-section document for a trivial change.
-- Modify source, schemas or production data as part of BA analysis.
-
-## v1.1 Work organization
-Manage EP -> FEAT -> US -> TASK in project-workspace/work/backlog/. Keep each Feature's BA documents in project-workspace/work/features/FEAT-ID-slug/ba/. Human approval differs from task completion. Link business analysis and AC to canonical Feature IDs; see WORKSPACE_RULES.md. Never write elsewhere.
+## Quality
+Avoid unmeasurable words without thresholds, hidden business decisions or oversized documents for minor changes. Reuse existing feature documents without relocating or renaming them. Put all new BA output as directly contained files in project-workspace/work/ only; no child directories. Reference WORKSPACE_RULES.md for immutable boundaries and no-migration policy.

@@ -1,45 +1,18 @@
-# Quality gates for BA / QA
+# BA and QA quality gates
 
-Gate states: PASS / FAIL / BLOCKED / NOT_APPLICABLE. A gate cannot PASS on missing evidence. The AI does not sign off for a product owner or release manager.
+Outcomes: PASS / FAIL / BLOCKED / NOT_APPLICABLE, supported by actual source/evidence rather than confidence language.
 
-## BA Ready (for implementation)
-
-- In/out of scope and stakeholders identified.
-- Requirement IDs and trusted source references exist.
-- Each critical business rule has observable acceptance criteria.
-- Dependencies, roles, exceptions and relevant NFRs considered.
-- No unresolved high-impact conflict that determines expected behavior.
-- Decisions needing human approval are clearly assigned.
+## BA Ready
+Business objective and scope defined; relevant sources/version retained; rules testable with observable AC; roles, exception paths and dependencies considered; material conflicting requirements escalated to a human decision owner. Task Done does not imply approved requirements.
 
 ## Test Design Ready
-
-- AC-to-TC mapping (RTM) present; unmapped AC called out.
-- Positive/negative/boundary/permission/state coverage risk-based and justified.
-- Test data, fixtures, environment and dependencies specified.
-- Expected results are objective, not guessed.
-- High-risk gaps and blocked assumptions documented.
+AC/requirement -> test cases traceable in whatever original files the user maintains. Risk-based positive/negative/boundary/permissions/state/regression coverage justified. Unknown expected behavior marked blocked, not assumed. Manual and automation candidates clearly identified where relevant.
 
 ## Execution Evidence Ready
+Each PASS tied to contemporaneous observation/environment/build; FAIL contains actual vs expected; unrun, blocked and inconclusive tests distinguished; open defects and residual risks explicit. Script existence is not execution evidence.
 
-- Each PASS has reproducible environment/build and contemporaneous evidence.
-- FAIL contains actual vs expected and defect linkage as appropriate.
-- NOT_RUN/BLOCKED/INCONCLUSIVE distinguished; no fabricated runs.
-- Relevant regression tests identified and results summarized.
-- Residual risk and unknowns explicit.
+## Cross-role change impact
+When requirements or AC change, identify affected test IDs, manual execution records and automation files; mark for review, do not silently rewrite history. Preserve existing filenames and locations. Work files are direct children of project-workspace/work/; runnable automation files direct children of project-workspace/tests/. No enforced feature folders or mandatory restructuring.
 
-## Release assessment (advisory only)
-
-Do not recommend unqualified Go when a P0/critical path is untested, there is an unresolved release-blocking defect, or required approvals are absent. State evidence limitations and the actual accountable decision owner.
-
-## Finding classification
-
-BLOCKER: prevents agreeing testable behavior or valid assessment.
-MAJOR: material coverage/behavior/safety discrepancy.
-MINOR: non-blocking ambiguity or usability/documentation gap.
-INFO: optional improvement. Each finding needs source or reproducible evidence and a concrete remediation.
-
-## v1.1 Cross-role acceptance
-- One canonical feature record, common BA/QA traceability.
-- Changed AC flags related TC/manual results/automation scripts for review.
-- Test design != executed testing; observed proof required for PASS.
-- Generated work and code confined to project-workspace/work/ and project-workspace/tests/.
+## Severity
+BLOCKER: missing agreed behavior or valid evaluation; MAJOR: meaningful risk/coverage failure; MINOR: nonblocking ambiguity; INFO: optional improvement. Include source or reproducible proof and a concrete next action.

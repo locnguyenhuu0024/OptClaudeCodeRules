@@ -1,74 +1,44 @@
-# OptClaudeCodeRules — BA / Tester Pack v1.1
+# OptClaudeCodeRules — BA / Tester v1.2 (flat workspace)
 
-Reusable Claude Code configuration for BA work management, business analysis, manual testing and automation testing.
+Reusable Claude Code rules, BA/QA specialist agents and templates. Main-agent recommendation: **Claude Sonnet 5.5 / Medium**.
 
-## Main agent
-Recommended default: **Claude Sonnet 5.5, effort Medium**. Use Opus 5.5 Medium for particularly difficult multi-system business decisions or architecture; specialized agents use their own configured presets. A rule cannot force the main session's model.
+## Flat project-workspace: exactly two data directories
 
-## Managed project scope (strict)
-This repository distributes reusable rules at root `CLAUDE.md`, `.claude/` and `docs/ba-qa/`. These are configuration, NOT generated project work.
-
-Inside `project-workspace/`, only the following directories are managed:
-- `project-workspace/work/`: BA backlog, one dossier per Feature, BA requirements, manual QA, QA plans, evidence, defects, traceability.
-- `project-workspace/tests/`: executable automation tests, fixtures, helpers and ignored local test outputs.
-
-Do not create or manage another tree under `project-workspace/`, including `test-results/`, `docs/` or `.claude/`. Do not change application code as part of BA/QA operations.
-
-## Layout
-```text
-OptClaudeCodeRules/
-├── CLAUDE.md
-├── .claude/
-│   ├── agents/                  # BA / QA specialized subagents
-│   └── skills/                  # on-demand workflows
-├── docs/ba-qa/
-│   ├── framework/               # routing, BA, QA, workspace contract, quality
-│   └── templates/               # reusable document templates
-└── project-workspace/
+    project-workspace/
     ├── work/
-    │   ├── backlog/
-    │   │   ├── epics.md
-    │   │   ├── features.md
-    │   │   └── tasks.md
-    │   └── features/
-    │       └── FEAT-001-sample-slug/      # create on demand, not prepopulated
-    │           ├── brief.md
-    │           ├── status.md
-    │           ├── ba/
-    │           │   ├── requirements.md
-    │           │   ├── business-rules.md
-    │           │   ├── acceptance-criteria.md
-    │           │   └── decisions.md
-    │           ├── qa/
-    │           │   ├── test-plan.md
-    │           │   ├── manual/             # cases, exploratory, observed runs
-    │           │   ├── automation/         # plans, TC-to-script links only
-    │           │   ├── defects.md
-    │           │   └── test-report.md
-    │           └── traceability.md
     └── tests/
-        ├── e2e/
-        ├── api/
-        ├── integration/
-        ├── fixtures/
-        └── helpers/
-```
 
-One canonical Feature ID is shared by BA and QA. Never create separate BA and QA feature registries. Create optional dossier files only when needed. Executable tests belong exclusively to `tests/`.
+There are **no required or auto-created subdirectories** within either directory. This rules pack does not prescribe a folder taxonomy for BA tasks, features, manual tests, reports, E2E, API tests or fixtures. Keep pre-existing files and their filenames/layout intact. Place existing BA/QA materials directly in work/ and existing automation files directly in tests/, without reclassification, renaming or restructuring. If pre-existing materials already have their own arrangement, do not migrate or modify it automatically.
 
-## Workflow
-1. BA work management: Epic -> Feature -> User Story -> Task.
-2. BA analysis: discover sources, map AS-IS/TO-BE, define business rules and measurable acceptance criteria.
-3. QA design: trace AC -> test case, choose manual or automated.
-4. Manual testing: design and capture honest observations.
-5. Automation: implement approved tests in `tests/`; store maps and test plans in `work/`.
-6. Independent audit and coverage/defect reporting. Humans own business approval and release decisions.
+- work/ holds existing BA work items, business analysis, requirements, user stories, AC, manual test cases, testing results, bugs, reports, traceability and automation plans.
+- tests/ holds the user's existing runnable automation tests and supporting files. No enforced runner, naming convention or test-type folders.
 
-## Run
-Clone this repo and start Claude Code at repository root to discover CLAUDE.md, agents and skills, while managing only `project-workspace/work/` and `project-workspace/tests/`.
-Use `/model` (Sonnet 5.5) and `/effort medium` for the main session; use `/agents` to inspect specialist agents. When integrating elsewhere, keep the managed path convention or update all rules accordingly.
+Tools should **find and use the existing files** instead of manufacturing a new tree. Feature/TC IDs and links may live in file content; do not demand particular filenames or paths. Do not manufacture empty epics, feature registers, test cases, directories or duplicate files to satisfy a template.
 
-## Safety
-Permission-bound read of relevant outside sources is possible; write scope stays in two managed trees. Never run destructive tests or production writes without explicit approval. Do not fabricate approvals, expected results or passed tests. Test runner output stays in ignored directories under `tests/`, with redacted summaries under `work/`.
+Root CLAUDE.md, .claude/agents/, .claude/skills/, and docs/ba-qa/ are **distribution/configuration files belonging to the rules repo**, not extra working folders under project-workspace/. Agents must not overwrite them during user work.
 
-Docs: https://code.claude.com/docs/en/sub-agents | https://code.claude.com/docs/en/skills | https://code.claude.com/docs/en/model-config
+## Task routing
+
+BA:
+- Work management: intake, tasks, owner, priority, dependency and status.
+- Analysis: AS-IS/TO-BE, business rules, requirement clarification, story and testable AC.
+- Independent domain review of high-risk ambiguities.
+
+Tester:
+- Manual: test design, exploration, real observed results and defects.
+- Automation: automation candidate selection, TC-to-script mapping, authorized test code edits and scoped execution.
+- Independent coverage/quality review and honest status/evidence.
+
+Recommended main agent is Sonnet 5.5 Medium; Haiku is used for simple extraction, Sonnet for normal BA/QA tasks, and Opus for high-risk review. Main session selection is configured in Claude Code; frontmatter sets agent presets, not the main model.
+
+## How to use
+
+Launch Claude Code from the repository root to load the bundled CLAUDE.md and agents; use /model and /effort to choose Sonnet 5.5 Medium. Put existing files into work/ or tests/ without rearranging them. Ask for BA/Tester work; the agent searches existing files and operates in place.
+
+The rule pack only **manages project data** in project-workspace/work/ and project-workspace/tests/. Reading authorized source documents elsewhere is permitted; writing outside the two destinations, creating subdirectories, rewriting unrelated artifacts or modifying product code is not. No production or destructive test operations without explicit permission. Scripts are not proof of passing tests.
+
+## Configuration
+
+See docs/ba-qa/framework/WORKSPACE_RULES.md for the binding workspace contract, and the other frameworks/templates only when needed.
+
+Claude Code documentation: https://code.claude.com/docs/en/sub-agents | https://code.claude.com/docs/en/skills

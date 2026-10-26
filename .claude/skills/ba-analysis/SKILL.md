@@ -1,7 +1,6 @@
 ---
 name: ba-analysis
-description: Analyze business processes AS-IS/TO-BE, business rules, scope, requirements, testable AC and ambiguities.
+description: Analyze sourced business workflows, rules, requirements and acceptance criteria using existing documents in place.
 ---
-# BA business analysis
-
-Read WORKSPACE_RULES, BA_RULES and applicable quality gate; use only a relevant template. Examine sources and create source-linked actors/flows, rules, exceptions, integrations, NFRs, stories and measurable AC. Separate fact, inference, assumption, question and proposal. Write ONLY under project-workspace/work/features/<FEAT-ID>-<slug>/ba/ and shared feature traceability if required. Escalate contradictory cross-system business logic to ba-domain-auditor and seek human sign-off.
+# BA analysis
+Read WORKSPACE_RULES.md and BA_RULES.md. Find existing documents in project-workspace/work/; derive AS-IS/TO-BE, states, roles, exceptions, requirements and testable AC while preserving original terminology and file layout. State assumptions/questions and sources. Do not require feature folders or mandatory document splitting. Coordinator saves approved changes in existing work/ files or a new directly contained file if explicitly warranted.

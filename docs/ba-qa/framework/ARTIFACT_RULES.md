@@ -1,11 +1,12 @@
-# BA/QA artifacts, provenance and boundaries — v1.1
+# Artifact discipline — flat working folders (v1.2)
 
-Only managed project roots: `project-workspace/work/` and `project-workspace/tests/`.
+All BA/Tester project writing is constrained to direct files inside project-workspace/work/ or project-workspace/tests/. No new subdirectories may be created.
 
-Under work/: backlog/ for canonical epics/features/tasks, features/<FEAT-ID>-<slug>/ba/ for BA, qa/manual/ for manual design and *observed* runs, qa/automation/ for automation plans and TC mappings, qa/ for defects/reports and feature root for brief/status/traceability.
+- work/: existing backlog/tasks, business analysis, requirements, AC, manual cases, run records, defects, traceability, plans, reports.
+- tests/: existing or specifically approved runnable automation scripts, fixtures, helpers and safe output files.
 
-Under tests/: e2e/, api/, integration/, fixtures/, helpers/ for executable test code. Runtime reports are kept under tests-local ignored paths, with sanitized summaries in work/. Do **not** write to the legacy `docs/ba-qa/artifacts/` path, or create `project-workspace/test-results/`.
+Do not impose a mandatory document set, naming pattern, Epic/Feature dossier tree, test-type subdivision or migration. Locate existing records first, update in place, and preserve their established filename, language, formatting and organization. If a document already combines several concerns, do not split it merely to satisfy this rules pack. New files are optional and go directly inside one of the two folders.
 
-Reusable templates live under repository-root docs/ba-qa/templates/ and are read-only during user project workflows. Do not overwrite approved artifacts without versioning and explicit decisions. Cite sources, versions and actual observed evidence. Do not infer PASS from writing scripts.
+Keep requirement -> AC -> Test Case -> evidence/defect traceability in file contents or existing identifiers, not directory paths. Reuse supplied sources and versions. Do not change existing approved conclusions without an explicit decision. Manual or automated tests authored but not run must show NOT_RUN. Report actual checks performed and evidence, never fabricated successes.
 
-For S work, a small edit is enough. For M/L work, load only templates necessary to the task. Follow `WORKSPACE_RULES.md` on IDs, boundaries and human approval.
+Reusable templates under repo-root docs/ba-qa/templates/ are reference-only and not work output. Do not create docs/ba-qa/artifacts/, project-workspace/test-results/ or any third managed project tree.

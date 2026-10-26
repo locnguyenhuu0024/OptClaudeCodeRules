@@ -1,7 +1,6 @@
 ---
 name: qa-manual
-description: Prepare manual scenarios, executable cases, exploratory charters, observed run sheets and bug reports.
+description: Prepare and record manual testing using existing files without restructuring the work folder.
 ---
-# QA manual testing
-
-Read WORKSPACE_RULES and QA_RULES. Map each case TC -> AC -> requirement. Include priority, preconditions, test data, precise steps, expected observable result and edge cases. Store under project-workspace/work/features/<FEAT-ID>-<slug>/qa/manual/. Case defaults NOT_RUN; never claim PASS without evidence, timestamp and environment. Defects/test summaries stay in that feature's qa/; do not write to code or automation tests.
+# Manual QA
+Read WORKSPACE_RULES.md and QA_RULES.md. Find current manual cases, requirements and defect files directly under project-workspace/work/. Reuse IDs, preserve file naming and layout, produce observable expected outcomes and exploratory notes, record actual run statuses with evidence. No mandatory qa/manual/testcase directory. New direct work/ files only if needed and authorized; no fabricated PASS.

@@ -1,33 +1,16 @@
-# QA / Tester rules
+# Tester / QA rules
 
-## Preparation
+## Shared preparation
+Read existing approved requirements, acceptance criteria, prior test cases and product restrictions as actually available in project-workspace/work/ or user-authorized sources. Never assume a prescribed file or folder layout; preserve existing test IDs and conventions.
 
-Read the latest approved requirements, AC, known defects, system boundaries and supported environments. List missing prerequisites and unresolved behavior as Blocked/Question, not fake test expectations.
+## Manual testing
+For test design, cover positive, negative, boundary, role/permission, state, recovery and risky integration scenarios. Specify preconditions, data, precise actions and observable expected outcomes. Save or revise manual case records, exploratory charters, actual observations and bugs as direct files under work/. Case creation is NOT_RUN, not PASS. Human-reported results and evidence must include provenance; if no safe observation exists, report BLOCKED/NOT_RUN/INCONCLUSIVE.
 
-## Risk-driven design
+## Automation testing
+Select stable, repeatable cases for automation, map to existing test IDs/AC, and record selection/mapping in direct work/ files. Implement only requested, authorized automation code/support files directly in tests/. Follow existing framework and established naming; no mandatory e2e/api/fixtures child directories and no gratuitous dependency installation. Never modify product source. Do not assume implementation proves passing execution.
 
-1. Map each AC to at least one positive and, where applicable, negative test.
-2. Partition equivalence classes; apply boundary values around limits; use decision tables for rule combinations and state transition testing for workflows.
-3. Prioritize high-impact/high-likelihood failures, permissions, financial/data integrity, privacy/security, integration, regression and recovery.
-4. Specify test IDs (TC-001...), priority (P0/P1/P2), type (functional/integration/e2e/nonfunctional), preconditions, fixtures, exact steps, expected observable outcomes, trace links.
-5. Avoid combinatorial explosion: pairwise or risk-based subset only when explained; keep P0 happy-path and critical negative-path coverage explicit.
-6. Flag untestable AC to BA with a proposed measurable clarification, not an invented expected result.
-7. Distinguish tests designed from tests executed.
+## Execution
+Inspect environment, commands, possible side effects and permission before running. Do not touch production payments, messages, private data, destructive DB actions or load unless separately approved. Output must use files directly within tests/ or work/ only. If the runner cannot avoid directory creation, do not execute; report the issue for a decision. For any run, record command, build/environment, actual result, time, evidence and honest PASS/FAIL/BLOCKED/NOT_RUN/INCONCLUSIVE status.
 
-## Execution rules
-
-- Execute only with environment access and explicit permission. Prefer isolated test environment with non-sensitive seeded data.
-- First inspect test commands and side effects. Do not run migration, deletion, checkout/payment, outbound notification or load tests against production.
-- Capture actual command, environment/commit, timestamp, actual/expected, log or screenshot reference, and outcome.
-- Statuses: PASS (observed evidence), FAIL (observed deviation), BLOCKED (cannot execute), NOT_RUN (not attempted), INCONCLUSIVE (insufficient evidence).
-- NEVER infer PASS from generated test cases, reading code, unexecuted commands or historical logs lacking provenance.
-- Suspected defects: reproduce; record clear steps, expected/actual, impact, evidence, environment/build, severity suggestion and confidence. Don't claim a fix.
-
-## Regression & exit
-
-Build a change-based smoke/regression subset from changed requirements and dependencies. Test report must show executed/total, failed/blocked, open critical defects, untested risks, environment, evidence and recommendation (Go / Conditional / No-Go) as a recommendation, not unauthorized release approval.
-
-Independent coverage audit should be done by a different agent when risk or artifact size warrants.
-
-## v1.1 Manual / automation organization
-Keep manual cases, exploratory charters and real execution records in project-workspace/work/features/FEAT-ID-slug/qa/manual/. Keep automation selection and mappings in qa/automation/, executable code/fixtures/helpers ONLY in project-workspace/tests/. Shared TC ID bridges manual and automated approaches. Keep runtime reports in ignored subpaths under tests/ and sanitized evidence summaries under work/. No other project-workspace tree or application edits.
+## Reporting
+Provide test coverage, high-risk gaps, linked defects, regressions and an evidence-backed Go/Conditional/No-Go recommendation, not a release approval. All output is in work/ or tests/ with no new subfolders; see WORKSPACE_RULES.md.

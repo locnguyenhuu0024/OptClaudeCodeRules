@@ -1,7 +1,6 @@
 ---
 name: qa-automation
-description: Select automation candidates, map TC IDs to scripts, implement safe scoped automated tests and assess evidence.
+description: Plan and maintain approved test automation in place, without creating folders or moving existing tests.
 ---
-# QA automation
-
-Read WORKSPACE_RULES and QA_RULES. Decide test candidates based on criticality, stability, isolation and maintenance costs. Plans/mappings belong to project-workspace/work/features/<FEAT-ID>-<slug>/qa/automation/; runnable scripts, fixtures, helpers and test config belong only in project-workspace/tests/. Use preexisting framework, scoped deterministic fixtures and TC IDs. Before execution inspect command and permissions, avoid external/production mutations, and keep ignored run artifacts inside tests/. No application source edits; writing code is not proof of execution.
+# Automation QA
+Read WORKSPACE_RULES.md and QA_RULES.md. Identify existing tests/files directly in project-workspace/tests/ and available requirements/mappings in work/. Maintain approved scripts and support files as-is; do not build an e2e/api/fixtures tree. Document TC-to-script links in existing work files. Before any execution check permissions and test-runner output; if a nested path would be created, block execution and explain. No product code changes.

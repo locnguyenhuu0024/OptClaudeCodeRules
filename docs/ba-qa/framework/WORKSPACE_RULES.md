@@ -1,32 +1,34 @@
-# Workspace and feature lifecycle — v1.1
+# WORKSPACE_RULES — flat data placement (v1.2)
 
-## Two approved project trees
-`project-workspace/work/` and `project-workspace/tests/` are the complete managed **project** write scope. The root `CLAUDE.md`, `.claude/` and `docs/ba-qa/` distribute configuration and templates, not generated working files.
+## Hard working scope
 
-| Directory | Responsibility |
-|---|---|
-| work/backlog/ | Epic / Feature / Task registers, priority, owner, dependencies, status |
-| work/features/FEAT-ID-slug/ | Shared Feature brief, status and traceability |
-| work/features/FEAT-ID-slug/ba/ | Discovery, AS-IS/TO-BE, rules, requirements, stories, AC and decisions |
-| work/features/FEAT-ID-slug/qa/manual/ | Manual test cases, exploratory charters and observed runs |
-| work/features/FEAT-ID-slug/qa/automation/ | Automation selection, plan and TC-ID-to-script mapping ONLY |
-| work/features/FEAT-ID-slug/qa/ | QA plan, bug log, assessment, report |
-| tests/ | Runnable E2E/API/integration tests, fixtures, helpers and test-local config/output |
+Only these two project data containers exist in the managed layout:
 
-These are relative to `project-workspace/`. No other path in `project-workspace/` may be managed. Root rule files are read-only during feature work. External materials may be read with permission, never written. Reject path traversal/symlink escapes. Configure tool permissions for hard enforcement; instructions alone are not a security boundary.
+    project-workspace/work/
+    project-workspace/tests/
 
-## One canonical work hierarchy
-Use `EP-001` Epic, `FEAT-001` Feature, `US-001` story, `TASK-001` work item, `FR-001` / `BR-001` / `NFR-001` requirements, `AC-001`, `TC-001`, `BUG-001`. To disambiguate feature-local IDs use fully-qualified `FEAT-001/TC-001` in cross-feature registers.
+**No agent may introduce subdirectories inside work/ or tests/.** Do not auto-generate backlog/, features/, manual/, automation/, e2e/, api/, integration/, fixtures/, helpers/, reports/, artifacts/ or a project-workspace/test-results directory.
 
-Feature states: Backlog -> Discovery -> In Analysis -> BA Review -> Ready for QA -> In Testing -> QA Review -> Ready for Release -> Closed. Allow Blocked and Reopened with reasons. Agent cannot mark approved without human sign-off; a task Done is not Feature Approved.
+work/ is a general container for every BA work item, process analysis, requirement, user story, acceptance criterion, manual test document, defect, testing note, traceability record, automation plan and test report. tests/ is a general container for existing or user-approved automated tests/support files and outputs that fit the flat layout.
 
-## BA / QA handoffs
-BA -> QA: scoped, sourced, versioned and reviewed business rules, AC, known unknowns and testability. Material unresolved decisions block matching tests.
-QA manual -> automation: stable TC/AC with precise observable assertions and fixtures; preserve one TC ID and map script filename rather than duplicating expected behavior.
+## Existing data wins
 
-On any requirement / AC change, enumerate impacted tests, manual runs, automation scripts, regressions and reviewers. Flag for review; do not overwrite prior evidence.
+- Users place their current documents/files in one of the two directories directly. Do not require a file naming convention, migrate an older layout, split/merge documents, rearrange artifacts, or auto-create a standard project skeleton.
+- If existing data is already arranged differently, **do not reorganize it**. First inspect and report a conflict if the task would require writing to a nested or disallowed path; seek instructions instead of moving, overwriting or deleting it.
+- Prefer updating existing relevant files over creating new ones. Only create a direct child file (no nested path) when requested or genuinely necessary and within scope.
+- Do not create empty Epic, Feature, Story, Task, test or defect registers without a real need. No dummy FEAT-001 directories or fake sample tasks.
+- Feature and Test Case IDs, where already present, should be preserved and referenced inside documents. Traceability is logical, not based on directory names. Human approval remains necessary for signed-off requirements and releases.
 
-## Execution evidence and output placement
-All newly designed manual tests start NOT_RUN. PASS/FAIL requires actual observed build, environment, timestamp and evidence. Runnable automation source stays in `tests/`; transient reports under ignored `tests/.artifacts/` or runner-specific paths **inside tests/**. Summary/links/redacted evidence live in `work/`. Never create `project-workspace/test-results/` or any third tree. Never commit credentials, PII or sensitive real datasets.
+## Task ownership
 
-Create only files needed for current S/M/L task. Don't generate a whole feature dossier for minor changes.
+BA backlog and business analysis: write relevant files directly in work/.
+Manual test design, exploratory outcomes, bug reports and test summaries: write directly in work/.
+Automation planning and mapping: write directly in work/.
+Automated script/fixture/helper changes: write directly in tests/.
+Read authorized external sources only; no product-code changes, no writes to other project trees or the rules pack configuration.
+
+## Execution
+
+Newly authored tests are NOT_RUN; only observed execution with build, environment, timestamp and evidence may be PASS/FAIL. Runner files/logs must be redirected to direct files under tests/ or summarized/redacted into files directly under work/. If tooling insists on nesting outputs and cannot be configured safely, stop and report NOT_RUN/BLOCKED; do not create a subfolder to bypass the contract.
+
+Preserve existing files unless the requested edit explicitly changes them. Before writing, resolve target paths and reject traversal/symlinks escaping the allowlist. Read-only evidence outside these locations does not permit writes there. Tool permission settings, not prose, provide actual enforcement.

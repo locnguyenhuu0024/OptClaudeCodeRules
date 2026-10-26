@@ -1,15 +1,12 @@
-# BA Work Item Template
-- Epic: EP-...
-- Feature: FEAT-...
-- Story: US-...
-- Task: TASK-...
-- Goal / business value:
-- Source or request link:
+# Work Item (adapt to the current file)
+
+- Existing item ID and type (Epic/Feature/Story/Task if applicable):
+- Objective / source:
 - Owner / decision authority:
-- Priority / objective rationale:
-- Scope / dependencies:
-- Blockers and risks:
-- Status / updated timestamp:
-- Required BA/QA output:
-- Feature dossier path:
-- Human approval reference (if approved):
+- Priority and reason:
+- Dependencies and blockers:
+- Status / last update:
+- Acceptance criteria and QA links (if supplied):
+- Next action / approval evidence:
+
+Use the same document and identifiers already in project-workspace/work/. No mandatory separate feature register, dossier path or directory creation.
