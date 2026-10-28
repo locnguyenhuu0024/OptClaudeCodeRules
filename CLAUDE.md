@@ -21,3 +21,7 @@ Root CLAUDE.md, .claude/ and docs/ba-qa/ are distributed rules and templates; do
 8. Return files actually changed, findings, coverage/risk and any human decisions required.
 
 Prompts do not enforce filesystem permissions; configure Claude Code permissions separately for effective restrictions.
+
+## Browser UI automation — avoid redundant confirmations
+
+For Claude in Chrome UI tests, additionally load docs/ba-qa/framework/BROWSER_TEST_SESSION_RULES.md on demand. From the approved QA-Handoff identify the staging origins, allowed test actions and safe fixtures **once**. After the user has granted the relevant browser/site permissions, perform ordinary in-scope read/click/scroll/navigation and non-sensitive test-data entry without **conversationally** asking approval at every step. Never interpret a QA-Handoff or these rules as product-level permission. Respect all Claude Code/Chrome prompts, protected actions, domain boundaries, login/CAPTCHA and production restrictions. Do not use Plan Mode for executing state-changing UI tests. Do not change permission settings or select bypass modes on the user's behalf.

@@ -4,3 +4,5 @@ description: Plan and maintain approved test automation in place, without creati
 ---
 # Automation QA
 Read WORKSPACE_RULES.md and QA_RULES.md. Identify existing tests/files directly in project-workspace/tests/ and available requirements/mappings in work/. Maintain approved scripts and support files as-is; do not build an e2e/api/fixtures tree. Document TC-to-script links in existing work files. Before any execution check permissions and test-runner output; if a nested path would be created, block execution and explain. No product code changes.
+
+For UI testing through Claude in Chrome, load docs/ba-qa/framework/BROWSER_TEST_SESSION_RULES.md. Agree on QA-Handoff test origin/scope once and avoid repeated *conversational* permission checks for permitted browser steps. The host may still require tool/site approvals; don't disable them or use bypassPermissions. If the skill is only planning or code-oriented, hand browser execution to the Chrome-capable main session.

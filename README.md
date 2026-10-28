@@ -42,3 +42,11 @@ The rule pack only **manages project data** in project-workspace/work/ and proje
 See docs/ba-qa/framework/WORKSPACE_RULES.md for the binding workspace contract, and the other frameworks/templates only when needed.
 
 Claude Code documentation: https://code.claude.com/docs/en/sub-agents | https://code.claude.com/docs/en/skills
+
+## Reduce repetitive Claude in Chrome approval prompts
+
+During UI testing, keep Claude Code out of **Plan Mode** because state-changing browser calls prompt there. Use \`/chrome\` to confirm connection, and \`/permissions\` to inspect Claude Code Ask/Allow/Deny rules. In the **Claude in Chrome** extension, trust only the specific staging/test origin via **Always allow actions on this site** when appropriate; **Allow this action** grants only one action. If your side panel supports **Automatically approve**, it can reduce per-step approvals while retaining safety checks; do not use **Skip all approvals** for routine QA. Some protected actions must still request approval.
+
+Agent instructions now implement one scoped QA-Handoff UI-test agreement and avoid *self-imposed* per-click conversational confirmation. They deliberately cannot bypass genuine tool or extension prompts. Full policy: docs/ba-qa/framework/BROWSER_TEST_SESSION_RULES.md. For production and sensitive websites, keep manual approvals.
+
+Docs: https://code.claude.com/docs/en/chrome | https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide

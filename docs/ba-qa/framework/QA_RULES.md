@@ -14,3 +14,7 @@ Inspect environment, commands, possible side effects and permission before runni
 
 ## Reporting
 Provide test coverage, high-risk gaps, linked defects, regressions and an evidence-backed Go/Conditional/No-Go recommendation, not a release approval. All output is in work/ or tests/ with no new subfolders; see WORKSPACE_RULES.md.
+
+## Claude in Chrome UI test sessions
+
+Apply BROWSER_TEST_SESSION_RULES.md for QA-Handoff browser execution. Establish approved test origin/environment, test data, actions and side effects once at session start. After actual platform/browser permissions are granted, do **not** interrupt the same test with repeated conversational confirmation before low-risk, in-scope browser steps. Only pause for new scope, unsafe or protected actions, ambiguous side effects or a genuine permission prompt. This does not override any host security permission. Browser screenshots and real observations are evidence only when actually captured; report BLOCKED/NOT_RUN for denied tool actions.

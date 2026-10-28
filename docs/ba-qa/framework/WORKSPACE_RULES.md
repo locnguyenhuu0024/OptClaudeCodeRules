@@ -32,3 +32,7 @@ Read authorized external sources only; no product-code changes, no writes to oth
 Newly authored tests are NOT_RUN; only observed execution with build, environment, timestamp and evidence may be PASS/FAIL. Runner files/logs must be redirected to direct files under tests/ or summarized/redacted into files directly under work/. If tooling insists on nesting outputs and cannot be configured safely, stop and report NOT_RUN/BLOCKED; do not create a subfolder to bypass the contract.
 
 Preserve existing files unless the requested edit explicitly changes them. Before writing, resolve target paths and reject traversal/symlinks escaping the allowlist. Read-only evidence outside these locations does not permit writes there. Tool permission settings, not prose, provide actual enforcement.
+
+## Browser interactions versus file management
+
+The two-flat-folder restriction governs project file outputs; it is NOT a requirement to request the user's permission before every browser click. Follow BROWSER_TEST_SESSION_RULES.md for authorized UI interactions, site boundaries and actual Chrome permission prompts. Browser testing does not authorize writes outside work/ or tests/ or the creation of subdirectories.
